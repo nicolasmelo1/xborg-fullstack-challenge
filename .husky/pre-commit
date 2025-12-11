@@ -1,3 +1,5 @@
+chmod +x .husky/pre-commit
+#
 # skip once via env flag if needed
 [ -n "$SKIP_CHANGESET" ] && exit 0
 
