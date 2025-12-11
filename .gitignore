@@ -134,6 +134,26 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
+# DB
+db/
+
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Turborepo
+.turbo
+
+# compiled output
+/dist
+/node_modules
+/build
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# vercel
+.vercel
+

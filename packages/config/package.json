@@ -1,0 +1,44 @@
+{
+  "name": "@xborg/config",
+  "version": "0.0.1",
+  "description": "Default configuration files for the project",
+  "exports": {
+    "./eslint.nestjs": {
+      "import": "./eslint.nestjs.mjs",
+      "types": "./eslint.d.ts"
+    },
+    "./eslint.library": {
+      "import": "./eslint.library.mjs",
+      "types": "./eslint.d.ts"
+    },
+    "./eslint.base": {
+      "import": "./eslint.base.mjs",
+      "types": "./eslint.d.ts"
+    },
+    "./eslint.nextjs": {
+      "import": "./eslint.nextjs.mjs",
+      "types": "./eslint.d.ts"
+    },
+    "./tsconfig.nestjs.json": "./tsconfig.nestjs.json",
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.nextjs.json": "./tsconfig.nextjs.json"
+  },
+  "types": "./main.d.ts",
+  "main": "main",
+  "private": true,
+  "keywords": [],
+  "type": "module",
+  "author": "Nicolas Melo",
+  "license": "ISC",
+  "packageManager": "pnpm@10.25.0",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@typescript-eslint/parser": "^8.49.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-turbo": "^2.6.3",
+    "globals": "^16.5.0",
+    "typescript-eslint": "^8.49.0"
+  }
+}

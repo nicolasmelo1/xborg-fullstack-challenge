@@ -1,0 +1,3 @@
+{
+  "extends": "@xborg/config/tsconfig.base.json"
+}
