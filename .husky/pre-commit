@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 # skip once via env flag if needed
 [ -n "$SKIP_CHANGESET" ] && exit 0
 
