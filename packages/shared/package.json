@@ -1,0 +1,47 @@
+{
+  "name": "@xborg/shared",
+  "version": "0.0.1",
+  "description": "",
+  "exports": {
+    "./backend": {
+      "import": "./dist/backend/index.mjs",
+      "types": "./src/backend/index.ts",
+      "require": "./dist/backend/index.js"
+    },
+    "./all": {
+      "import": "./dist/all/index.mjs",
+      "types": "./src/all/index.ts",
+      "require": "./dist/all/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "backend": [
+        "src/backend/index.ts"
+      ],
+      "backend/*": [
+        "src/backend/*"
+      ],
+      "all": [
+        "src/all/index.ts"
+      ],
+      "all/*": [
+        "src/all/*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup ./src --dts --format esm,cjs --no-splitting --sourcemap --clean",
+    "dev": "pnpm build --watch",
+    "start:dev": "pnpm run dev"
+  },
+  "main": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.25.0",
+  "devDependencies": {
+    "@xborg/config": "workspace:*",
+    "tsup": "^8.5.1"
+  }
+}

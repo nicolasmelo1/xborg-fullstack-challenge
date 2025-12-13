@@ -9,15 +9,17 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.2",
+    "@xborg/shared": "workspace:*",
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1"
   },
   "devDependencies": {
-    "@xborg/config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@xborg/config": "workspace:*",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
     "typescript": "^5"

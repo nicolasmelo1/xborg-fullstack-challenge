@@ -4,27 +4,58 @@
   "description": "Default configuration files for the project",
   "exports": {
     "./eslint.nestjs": {
-      "import": "./eslint.nestjs.mjs",
-      "types": "./eslint.d.ts"
+      "import": "./src/eslint/eslint.nestjs.mjs",
+      "types": "./src/eslint/eslint.d.ts"
     },
     "./eslint.library": {
-      "import": "./eslint.library.mjs",
-      "types": "./eslint.d.ts"
+      "import": "./src/eslint/eslint.library.mjs",
+      "types": "./src/eslint/eslint.d.ts"
     },
     "./eslint.base": {
-      "import": "./eslint.base.mjs",
-      "types": "./eslint.d.ts"
+      "import": "./src/eslint/eslint.base.mjs",
+      "types": "./src/eslint/eslint.d.ts"
     },
     "./eslint.nextjs": {
-      "import": "./eslint.nextjs.mjs",
-      "types": "./eslint.d.ts"
+      "import": "./src/eslint/eslint.nextjs.mjs",
+      "types": "./src/eslint/eslint.d.ts"
     },
-    "./tsconfig.nestjs.json": "./tsconfig.nestjs.json",
-    "./tsconfig.base.json": "./tsconfig.base.json",
-    "./tsconfig.nextjs.json": "./tsconfig.nextjs.json"
+    "./tsconfig.nestjs.json": "./src/tsconfig/tsconfig.nestjs.json",
+    "./tsconfig.base.json": "./src/tsconfig/tsconfig.base.json",
+    "./tsconfig.nextjs.json": "./src/tsconfig/tsconfig.nextjs.json",
+    "./jest/jest.nestjs": "./src/jest/jest.nestjs.ts",
+    "./tests/setup": {
+      "import": "./src/jest/jest-setup.ts",
+      "types": "./src/jest/jest-setup.ts"
+    },
+    "./jest/teardown": {
+      "import": "./src/jest/jest-teardown.ts",
+      "types": "./src/jest/jest-teardown.ts"
+    }
   },
-  "types": "./main.d.ts",
-  "main": "main",
+  "typesVersions": {
+    "*": {
+      "eslint": [
+        "src/eslint/eslint.base.mjs",
+        "src/eslint/eslint.config.mjs",
+        "src/eslint/eslint.library.mjs",
+        "src/eslint/eslint.nestjs.mjs",
+        "src/eslint/eslint.nextjs.mjs"
+      ],
+      "jest": [
+        "src/jest/jest.nestjs.ts",
+        "src/jest/jest-setup.ts",
+        "src/jest/jest-teardown.ts"
+      ],
+      "jest/*": [
+        "src/jest/*"
+      ],
+      "tsconfig": [
+        "src/tsconfig/tsconfig.base.json",
+        "src/tsconfig/tsconfig.nestjs.json",
+        "src/tsconfig/tsconfig.nextjs.json"
+      ]
+    }
+  },
   "private": true,
   "keywords": [],
   "type": "module",
@@ -33,12 +64,19 @@
   "packageManager": "pnpm@10.25.0",
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@next/eslint-plugin-next": "^16.0.10",
+    "@swc/jest": "^0.2.39",
     "@typescript-eslint/parser": "^8.49.0",
+    "eslint-config-next": "16.0.8",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-turbo": "^2.6.3",
     "globals": "^16.5.0",
+    "jest": "^30.2.0",
+    "testcontainers": "^11.10.0",
     "typescript-eslint": "^8.49.0"
   }
 }

@@ -7,9 +7,13 @@ export default [
   },
   ...libraryConfig,
   {
-    parser: tsParser,
-    parserOptions: {
-      project: true,
+    files: ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
   },
   {
