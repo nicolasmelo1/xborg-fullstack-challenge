@@ -19,7 +19,9 @@ export class GetProfileUseCase implements Service<
     private readonly authServiceClient: ClientProxy,
   ) {}
 
-  execute(externalId: string) {
+  execute(
+    externalId: string,
+  ): Observable<GetEventOutput<typeof EVENTS.user.read>> {
     return this.authServiceClient.send<
       GetEventOutput<typeof EVENTS.user.read>,
       GetEventInput<typeof EVENTS.user.read>

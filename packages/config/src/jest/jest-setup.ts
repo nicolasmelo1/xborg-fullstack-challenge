@@ -1,4 +1,4 @@
-import { GenericContainer } from "testcontainers";
+import { GenericContainer, Wait } from "testcontainers";
 
 async function createTestRedis(): Promise<void> {
   const container = await new GenericContainer("redis:8-alpine")
@@ -12,7 +12,13 @@ async function createTestRedis(): Promise<void> {
 
 async function createTestDb(): Promise<void> {
   const container = await new GenericContainer("postgres:18-alpine")
+    .withEnvironment({
+      POSTGRES_PASSWORD: "password",
+      POSTGRES_DB: "postgres",
+      POSTGRES_USER: "postgres",
+    })
     .withExposedPorts(5432)
+    .withWaitStrategy(Wait.forListeningPorts())
     .start();
 
   process.env.DB_HOST = container.getHost();

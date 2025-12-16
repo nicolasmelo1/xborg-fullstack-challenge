@@ -1,32 +1,17 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
 import { ProfileModule } from "./profiles/profile.module";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { AuthModule } from "./auth/auth.module";
+import { DatabaseModule } from "./database.module";
+import { GoogleOAuthModule } from "./google-oauth.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
-        return {
-          type: "postgres",
-          host: configService.get("DB_HOST"),
-          port: configService.get("DB_PORT"),
-          username: configService.get("DB_USER"),
-          password: configService.get("DB_PASSWORD"),
-          database: configService.get("DB_NAME"),
-          namingStrategy: new SnakeNamingStrategy(),
-          autoLoadEntities: true,
-          synchronize: true,
-        };
-      },
-      inject: [ConfigService],
-    }),
+    DatabaseModule,
+    GoogleOAuthModule,
     ProfileModule,
     AuthModule,
   ],

@@ -9,33 +9,30 @@ import { ConfigService } from "@nestjs/config";
 import { Inject } from "@nestjs/common";
 import { CreateProfileUseCase } from "src/profiles/use-cases/create-profile.use-case";
 import { SignTokenUseCase } from "./sign-token.use-case";
-import { ReadProfileByGoogleIdUseCase } from "src/profiles/use-cases/read-profile-by-google-id.use-case";
+import { ReadProfileByGoogleIdUseCase } from "../../profiles/use-cases/read-profile-by-google-id.use-case";
+import { GOOGLE_OUATH_CLIENT } from "../../google-oauth.module";
 
 export class AuthenticateUseCase implements Service<
   GetEventInput<typeof EVENTS.auth.authenticate>,
   Promise<GetEventOutput<typeof EVENTS.auth.authenticate>>
 > {
-  private readonly googleClient: OAuth2Client;
-
   constructor(
     @Inject(ConfigService)
     private readonly configService: ConfigService,
+    @Inject(GOOGLE_OUATH_CLIENT)
+    private readonly googleClient: OAuth2Client,
     private readonly readProfileGoogleIdUseCase: ReadProfileByGoogleIdUseCase,
     private readonly createProfileUseCase: CreateProfileUseCase,
     private readonly signTokenUseCase: SignTokenUseCase,
-  ) {
-    this.googleClient = new OAuth2Client({
-      clientId: this.configService.get("GOOGLE_CLIENT_ID"),
-      clientSecret: this.configService.get("GOOGLE_CLIENT_SECRET"),
-    });
-  }
+  ) {}
 
   async execute(
     input: GetEventInput<typeof EVENTS.auth.authenticate>,
   ): Promise<GetEventOutput<typeof EVENTS.auth.authenticate>> {
+    if (!input.code) return { success: false, error: "No code" };
     const { tokens } = await this.googleClient.getToken({
       code: input.code,
-      redirect_uri: "http://localhost:3000",
+      redirect_uri: this.configService.get("GOOGLE_REDIRECT_URI"),
     });
 
     if (!tokens.id_token) {
@@ -59,6 +56,7 @@ export class AuthenticateUseCase implements Service<
     }
 
     const user = await this.readProfileGoogleIdUseCase.execute(payload.sub);
+
     const externalId = user?.externalId ?? crypto.randomUUID();
     if (!user)
       await this.createProfileUseCase.execute({

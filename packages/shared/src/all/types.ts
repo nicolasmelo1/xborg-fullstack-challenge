@@ -10,6 +10,8 @@ export type User = {
   updatedAt: Date;
 };
 
+export type SafeUser = Omit<User, "id" | "googleId">;
+
 export type GoogleUserInfo = {
   id: string;
   email: string;

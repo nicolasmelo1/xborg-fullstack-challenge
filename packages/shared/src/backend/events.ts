@@ -14,13 +14,28 @@ export const EVENTS = {
 export type EventInputAndOutputs = {
   [EVENTS.user.read]: {
     input: User["externalId"];
-    output: User | null;
+    output:
+      | {
+          success: true;
+          user: User;
+        }
+      | {
+          success: false;
+          error: string;
+        };
   };
   [EVENTS.user.update]: {
     input: {
       externalId: User["externalId"];
     } & Partial<Omit<User, "id" | "externalId">>;
-    output: void;
+    output:
+      | {
+          success: true;
+        }
+      | {
+          success: false;
+          error: string;
+        };
   };
   [EVENTS.auth.authenticate]: {
     input: GoogleCode;

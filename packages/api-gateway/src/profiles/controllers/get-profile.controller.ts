@@ -1,7 +1,10 @@
-import { Get, Controller, UseGuards } from "@nestjs/common";
-import { GetProfileUseCase } from "../use-cases/get-profile.use-case.js";
-import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard.js";
-import { GetAuthenticatedUserExternalId } from "../../auth/decorators/get-authenticated-user-external-id.decorator.js";
+import { Get, Controller, UseGuards, HttpException } from "@nestjs/common";
+import { GetProfileUseCase } from "../use-cases/get-profile.use-case";
+import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
+import { GetAuthenticatedUserExternalId } from "../../auth/decorators/get-authenticated-user-external-id.decorator";
+import { firstValueFrom } from "rxjs";
+import { GetProfileResponseDto } from "../dtos/get-profile.response.dto";
+import { plainToInstance } from "class-transformer";
 
 @Controller("user/profile")
 export class GetProfileController {
@@ -13,6 +16,13 @@ export class GetProfileController {
     @GetAuthenticatedUserExternalId()
     externalId: string,
   ) {
-    return this.getProfileUseCase.execute(externalId);
+    const profile = await firstValueFrom(
+      this.getProfileUseCase.execute(externalId),
+    );
+    if (!profile.success) throw new HttpException(profile.error, 404);
+
+    return plainToInstance(GetProfileResponseDto, profile.user, {
+      excludeExtraneousValues: true,
+    });
   }
 }

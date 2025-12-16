@@ -26,6 +26,7 @@
     "migration:generate": {},
     "migration:run": {},
     "migration:revert": {},
+    "test:integration": {},
     "dev": {
       "persistent": true,
       "cache": false

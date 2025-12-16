@@ -22,8 +22,8 @@ export class ReadProfileByExternalIdUseCase implements Service<
     input: GetEventInput<typeof EVENTS.user.read>,
   ): Promise<GetEventOutput<typeof EVENTS.user.read>> {
     const user = await this.profileRepository.getByExternalId(input);
-    if (!user) return null;
 
-    return user;
+    if (!user) return { success: false, error: "User not found" };
+    return { success: true, user };
   }
 }

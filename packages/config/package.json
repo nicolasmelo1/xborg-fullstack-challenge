@@ -22,13 +22,18 @@
     "./tsconfig.nestjs.json": "./src/tsconfig/tsconfig.nestjs.json",
     "./tsconfig.base.json": "./src/tsconfig/tsconfig.base.json",
     "./tsconfig.nextjs.json": "./src/tsconfig/tsconfig.nextjs.json",
-    "./jest/jest.nestjs": "./src/jest/jest.nestjs.ts",
-    "./tests/setup": {
+    "./jest/jest.nestjs": {
+      "import": "./src/jest/jest.nestjs.ts",
+      "default": "./src/jest/jest.nestjs.ts"
+    },
+    "./jest/jest-setup": {
       "import": "./src/jest/jest-setup.ts",
+      "default": "./src/jest/jest-setup.ts",
       "types": "./src/jest/jest-setup.ts"
     },
-    "./jest/teardown": {
+    "./jest/jest-teardown": {
       "import": "./src/jest/jest-teardown.ts",
+      "default": "./src/jest/jest-teardown.ts",
       "types": "./src/jest/jest-teardown.ts"
     }
   },

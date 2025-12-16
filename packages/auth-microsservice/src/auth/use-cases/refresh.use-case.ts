@@ -21,8 +21,8 @@ export class RefreshUseCase implements Service<
   async execute(
     input: GetEventInput<typeof EVENTS.auth.refresh>,
   ): Promise<GetEventOutput<typeof EVENTS.auth.refresh>> {
-    const user = await this.readProfileExternalIdUseCase.execute(input);
-    if (!user)
+    const maybeUser = await this.readProfileExternalIdUseCase.execute(input);
+    if (!maybeUser.success)
       return {
         success: false,
         error: "No user found",
@@ -30,7 +30,7 @@ export class RefreshUseCase implements Service<
 
     const { accessToken, refreshToken } = this.signTokenUseCase.execute({
       externalId: input,
-      email: user.email ?? "",
+      email: maybeUser.user.email ?? "",
     });
 
     return {
