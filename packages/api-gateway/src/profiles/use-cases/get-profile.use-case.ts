@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class GetProfileUseCase implements Service<
-  void,
+  string,
   Observable<GetEventOutput<typeof EVENTS.user.read>>
 > {
   constructor(
@@ -19,10 +19,10 @@ export class GetProfileUseCase implements Service<
     private readonly authServiceClient: ClientProxy,
   ) {}
 
-  execute() {
+  execute(externalId: string) {
     return this.authServiceClient.send<
       GetEventOutput<typeof EVENTS.user.read>,
       GetEventInput<typeof EVENTS.user.read>
-    >(EVENTS.user.read, "i");
+    >(EVENTS.user.read, externalId);
   }
 }

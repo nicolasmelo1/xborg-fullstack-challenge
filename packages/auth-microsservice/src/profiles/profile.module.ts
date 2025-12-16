@@ -1,12 +1,14 @@
 import { Module } from "@nestjs/common";
-import { GetProfileController } from "./controllers/get-profile.controller.js";
-import { PutProfileController } from "./controllers/put-profile.controller.js";
-import { UpdateProfileUseCase } from "./use-cases/update-profile.use-case.js";
-import { GetProfileUseCase } from "./use-cases/get-profile.use-case.js";
+import { GetProfileController } from "./controllers/get-profile.controller";
+import { PutProfileController } from "./controllers/put-profile.controller";
+import { UpdateProfileUseCase } from "./use-cases/update-profile.use-case";
+import { ReadProfileByExternalIdUseCase } from "./use-cases/read-profile-by-external-id.use-case";
+import { ReadProfileByGoogleIdUseCase } from "./use-cases/read-profile-by-google-id.use-case";
+import { CreateProfileUseCase } from "./use-cases/create-profile.use-case";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./entities/user.entity";
-import { PROFILE_REPOSITORY } from "./profile.contants.js";
-import { ProfileRepository } from "./profile.repository.js";
+import { PROFILE_REPOSITORY } from "./profile.contants";
+import { ProfileRepository } from "./profile.repository";
 
 const ProfileRepositoryProvider = {
   provide: PROFILE_REPOSITORY,
@@ -18,8 +20,15 @@ const ProfileRepositoryProvider = {
   controllers: [GetProfileController, PutProfileController],
   providers: [
     ProfileRepositoryProvider,
-    GetProfileUseCase,
+    ReadProfileByExternalIdUseCase,
+    ReadProfileByGoogleIdUseCase,
     UpdateProfileUseCase,
+    CreateProfileUseCase,
+  ],
+  exports: [
+    ReadProfileByGoogleIdUseCase,
+    CreateProfileUseCase,
+    ReadProfileByExternalIdUseCase,
   ],
 })
 export class ProfileModule {}

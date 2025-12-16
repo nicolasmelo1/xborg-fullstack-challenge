@@ -1,4 +1,4 @@
-import { User } from "../all/types";
+import { GoogleCode, User } from "../all/types";
 
 export const EVENTS = {
   user: {
@@ -7,6 +7,7 @@ export const EVENTS = {
   },
   auth: {
     authenticate: "auth.authenticate",
+    refresh: "auth.refresh",
   },
 } as const;
 
@@ -22,8 +23,30 @@ export type EventInputAndOutputs = {
     output: void;
   };
   [EVENTS.auth.authenticate]: {
-    input: [{ userId: string }];
-    output: [{ userId: string }];
+    input: GoogleCode;
+    output:
+      | {
+          success: true;
+          accessToken: string;
+          refreshToken: string;
+        }
+      | {
+          success: false;
+          error: string;
+        };
+  };
+  [EVENTS.auth.refresh]: {
+    input: User["externalId"];
+    output:
+      | {
+          success: true;
+          accessToken: string;
+          refreshToken: string;
+        }
+      | {
+          success: false;
+          error: string;
+        };
   };
 };
 

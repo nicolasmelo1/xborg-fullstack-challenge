@@ -1,15 +1,15 @@
 import {
   EVENTS,
-  type Service,
-  type GetEventOutput,
   GetEventInput,
+  GetEventOutput,
+  type Service,
 } from "@xborg/shared/backend";
 import { Inject, Injectable } from "@nestjs/common";
 import { PROFILE_REPOSITORY } from "../profile.contants";
 import { ProfileRepository } from "../profile.repository";
 
 @Injectable()
-export class GetProfileUseCase implements Service<
+export class ReadProfileByExternalIdUseCase implements Service<
   GetEventInput<typeof EVENTS.user.read>,
   Promise<GetEventOutput<typeof EVENTS.user.read>>
 > {
@@ -21,6 +21,9 @@ export class GetProfileUseCase implements Service<
   async execute(
     input: GetEventInput<typeof EVENTS.user.read>,
   ): Promise<GetEventOutput<typeof EVENTS.user.read>> {
-    return this.profileRepository.getByExternalId(input);
+    const user = await this.profileRepository.getByExternalId(input);
+    if (!user) return null;
+
+    return user;
   }
 }

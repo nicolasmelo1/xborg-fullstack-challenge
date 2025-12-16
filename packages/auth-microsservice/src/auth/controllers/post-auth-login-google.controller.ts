@@ -1,7 +1,6 @@
-import { Controller, ValidationPipe } from "@nestjs/common";
-import { PostAuthLoginGoogleRequestDto } from "../dtos/post-auth-login-google.request.dto";
+import { Controller } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
-import { EVENTS } from "@xborg/shared/backend";
+import { EVENTS, GetEventOutput, GetEventInput } from "@xborg/shared/backend";
 import { AuthenticateUseCase } from "../use-cases/authenticate.use-case";
 
 @Controller()
@@ -10,9 +9,9 @@ export class PostAuthLoginGoogleController {
 
   @MessagePattern(EVENTS.auth.authenticate)
   async create(
-    @Payload(new ValidationPipe({ whitelist: true }))
-    body: PostAuthLoginGoogleRequestDto,
-  ) {
-    return await this.authenticateUseCase.execute(body);
+    @Payload()
+    payload: GetEventInput<typeof EVENTS.auth.authenticate>,
+  ): Promise<GetEventOutput<typeof EVENTS.auth.authenticate>> {
+    return await this.authenticateUseCase.execute(payload);
   }
 }

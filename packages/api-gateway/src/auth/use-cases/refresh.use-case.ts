@@ -7,12 +7,11 @@ import {
   Service,
 } from "@xborg/shared/backend";
 import { AUTH_SERVICE_CLIENT } from "src/messaging.module";
-import { PostAuthLoginGoogleRequestDto } from "../dtos/post-auth-login-google.request.dto";
 import { lastValueFrom } from "rxjs";
 
-export class AuthenticateUseCase implements Service<
-  PostAuthLoginGoogleRequestDto,
-  Promise<GetEventOutput<typeof EVENTS.auth.authenticate>>
+export class RefreshUseCase implements Service<
+  GetEventInput<typeof EVENTS.auth.refresh>,
+  Promise<GetEventOutput<typeof EVENTS.auth.refresh>>
 > {
   constructor(
     @Inject(AUTH_SERVICE_CLIENT)
@@ -20,13 +19,13 @@ export class AuthenticateUseCase implements Service<
   ) {}
 
   async execute(
-    input: PostAuthLoginGoogleRequestDto,
-  ): Promise<GetEventOutput<typeof EVENTS.auth.authenticate>> {
+    input: GetEventInput<typeof EVENTS.auth.refresh>,
+  ): Promise<GetEventOutput<typeof EVENTS.auth.refresh>> {
     return await lastValueFrom(
       this.authServiceClient.send<
-        GetEventOutput<typeof EVENTS.auth.authenticate>,
-        GetEventInput<typeof EVENTS.auth.authenticate>
-      >(EVENTS.auth.authenticate, input),
+        GetEventOutput<typeof EVENTS.auth.refresh>,
+        GetEventInput<typeof EVENTS.auth.refresh>
+      >(EVENTS.auth.refresh, input),
     );
   }
 }

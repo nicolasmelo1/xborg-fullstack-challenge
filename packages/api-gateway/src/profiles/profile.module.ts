@@ -3,10 +3,11 @@ import { GetProfileController } from "./controllers/get-profile.controller.js";
 import { PutProfileController } from "./controllers/put-profile.controller.js";
 import { UpdateProfileUseCase } from "./use-cases/update-profile.use-case.js";
 import { GetProfileUseCase } from "./use-cases/get-profile.use-case.js";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard.js";
 
 @Module({
   imports: [],
   controllers: [GetProfileController, PutProfileController],
-  providers: [GetProfileUseCase, UpdateProfileUseCase],
+  providers: [GetProfileUseCase, UpdateProfileUseCase, JwtAuthGuard],
 })
 export class ProfileModule {}

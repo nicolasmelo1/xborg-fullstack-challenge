@@ -1,22 +1,7 @@
-import { GoogleUserInfo } from "@xborg/shared/all/types";
-import { IsEmail, IsNumberString, IsString, IsUrl } from "class-validator";
+import { GoogleCode } from "@xborg/shared/all";
+import { IsString } from "class-validator";
 
-export class PostAuthLoginGoogleRequestDto implements GoogleUserInfo {
+export class PostAuthLoginGoogleRequestDto implements GoogleCode {
   @IsString()
-  @IsEmail()
-  email!: string;
-
-  @IsString()
-  firstName!: string;
-
-  @IsString()
-  lastName!: string;
-
-  @IsString()
-  @IsUrl()
-  pictureUrl!: string;
-
-  @IsString()
-  @IsNumberString()
-  id!: string;
+  code!: string;
 }

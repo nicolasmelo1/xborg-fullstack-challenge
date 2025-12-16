@@ -1,5 +1,12 @@
 {
   "extends": "@xborg/config/tsconfig.base.json",
   "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
   "include": ["src/**/*.ts", "test/**/*.ts"]
 }

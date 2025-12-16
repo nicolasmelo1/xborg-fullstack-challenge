@@ -17,3 +17,7 @@ export type GoogleUserInfo = {
   lastName: string;
   pictureUrl: string;
 };
+
+export type GoogleCode = {
+  code: string;
+};
