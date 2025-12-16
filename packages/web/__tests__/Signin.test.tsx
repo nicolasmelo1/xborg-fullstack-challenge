@@ -1,16 +1,20 @@
-import { expect, test } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { expect, test, vi } from "vitest";
 import SignInPage from "../src/app/(unauthenticated)/signin/page";
-import { vi } from "vitest";
+import { useRouterMock, useSearchParamsMock } from "./testUtils";
 
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-  }),
-  useSearchParams: () => new URLSearchParams(""),
-}));
+test("SignInPage triggers google login and navigates to callback", () => {
+  const push = vi.fn();
+  useRouterMock.mockReturnValue({
+    push,
+  });
+  useSearchParamsMock.mockReturnValue(new URLSearchParams(""));
 
-test("SignInPage", () => {
   render(<SignInPage />);
-  expect(screen.getByRole("heading", { level: 1, name: "Home" })).toBeDefined();
+
+  fireEvent.click(screen.getByText("Sign in with Google"));
+
+  expect(push).toHaveBeenCalledWith(
+    expect.stringContaining("/signin/callback?"),
+  );
 });

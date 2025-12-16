@@ -1,14 +1,15 @@
-import { DynamicModule } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { OAuth2Client } from "google-auth-library";
 
 export const GOOGLE_OUATH_CLIENT = Symbol("GOOGLE_OUATH_CLIENT");
 
+@Module({})
 export class GoogleOAuthModule {
   static forRoot(): DynamicModule {
     return {
       module: GoogleOAuthModule,
-      exports: [
+      providers: [
         {
           provide: GOOGLE_OUATH_CLIENT,
           useFactory: (configService: ConfigService) => {
@@ -20,6 +21,7 @@ export class GoogleOAuthModule {
           inject: [ConfigService],
         },
       ],
+      exports: [GOOGLE_OUATH_CLIENT],
     };
   }
 }
