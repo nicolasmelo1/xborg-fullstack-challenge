@@ -54,3 +54,14 @@ pnpm -C packages/api-gateway test
 - Private:
   - `GET /user/profile`
   - `PUT /user/profile`
+
+### API docs (Swagger)
+
+Swagger UI is available at:
+
+- `http://localhost:3006/docs` (local)
+
+Notes:
+
+- Enabled by default when `NODE_ENV` is not `production`.
+- Set `SWAGGER_ENABLED=true` to enable in production.

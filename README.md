@@ -82,6 +82,13 @@ pnpm run dev
 - `GET /auth/login/google` (public): starts Google OAuth.
 - `GET /auth/validate/google` (public): Google callback; sets session cookies; redirects to the web app.
 
+## API docs (Swagger)
+
+API Gateway exposes Swagger UI at `http://localhost:3006/docs`.
+
+- Enabled by default when `NODE_ENV` is not `production`.
+- To enable in production, set `SWAGGER_ENABLED=true` on the API Gateway environment.
+
 ## Quality checks
 
 From the repo root:
