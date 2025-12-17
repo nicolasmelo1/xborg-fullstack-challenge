@@ -12,6 +12,12 @@ export type User = {
 
 export type SafeUser = Omit<User, "id" | "googleId">;
 
+export type UpdateUserInput = {
+  externalId: User["externalId"];
+} & Partial<
+  Omit<User, "id" | "googleId" | "externalId" | "createdAt" | "updatedAt">
+>;
+
 export type GoogleUserInfo = {
   id: string;
   email: string;
@@ -22,4 +28,8 @@ export type GoogleUserInfo = {
 
 export type GoogleCode = {
   code: string;
+};
+
+export type GoogleStartAuthorization = {
+  redirectUrl: string;
 };

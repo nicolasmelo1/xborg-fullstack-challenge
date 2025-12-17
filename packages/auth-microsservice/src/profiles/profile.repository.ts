@@ -2,6 +2,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { Injectable } from "@nestjs/common";
+import { UpdateUserInput } from "@xborg/shared/all";
 
 @Injectable()
 export class ProfileRepository {
@@ -30,13 +31,10 @@ export class ProfileRepository {
     await this.repository.insert(user);
   }
 
-  async update(
-    externalId: string,
-    user: Partial<Omit<UserEntity, "id" | "externalId">>,
-  ): Promise<void> {
+  async update(user: UpdateUserInput): Promise<void> {
     await this.repository.update(
       {
-        externalId,
+        externalId: user.externalId,
       },
       user,
     );

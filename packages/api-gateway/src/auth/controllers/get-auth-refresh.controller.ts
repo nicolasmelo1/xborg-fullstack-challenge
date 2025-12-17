@@ -24,12 +24,12 @@ export class GetAuthRefreshController {
     res.cookie(COOKIE_SESSION, result.accessToken, {
       maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
     });
     res.cookie(COOKIE_REFRESH_TOKEN, result.refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
     });
 

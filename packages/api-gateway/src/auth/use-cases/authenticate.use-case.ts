@@ -7,11 +7,11 @@ import {
   Service,
 } from "@xborg/shared/backend";
 import { AUTH_SERVICE_CLIENT } from "src/messaging.module";
-import { PostAuthLoginGoogleRequestDto } from "../dtos/post-auth-login-google.request.dto";
 import { lastValueFrom } from "rxjs";
+import { GetAuthValidateGoogleRequestDto } from "../dtos/get-auth-validate-google.request.dto";
 
 export class AuthenticateUseCase implements Service<
-  PostAuthLoginGoogleRequestDto,
+  GetAuthValidateGoogleRequestDto,
   Promise<GetEventOutput<typeof EVENTS.auth.authenticate>>
 > {
   constructor(
@@ -20,7 +20,7 @@ export class AuthenticateUseCase implements Service<
   ) {}
 
   async execute(
-    input: PostAuthLoginGoogleRequestDto,
+    input: GetAuthValidateGoogleRequestDto,
   ): Promise<GetEventOutput<typeof EVENTS.auth.authenticate>> {
     return await lastValueFrom(
       this.authServiceClient.send<

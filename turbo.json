@@ -12,7 +12,8 @@
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
     "GOOGLE_CALLBACK_URL",
-    "FRONTEND_ORIGIN"
+    "FRONTEND_ORIGIN",
+    "NODE_ENV"
   ],
   "tasks": {
     "build": {
@@ -23,6 +24,7 @@
       "dependsOn": ["^check-types"]
     },
     "lint": {},
+    "test": {},
     "migration:generate": {},
     "migration:run": {},
     "migration:revert": {},

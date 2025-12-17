@@ -7,14 +7,15 @@ import { ProfileRepository } from "../profile.repository";
 @Injectable()
 export class CreateProfileUseCase implements Service<
   Omit<UserEntity, "id">,
-  Promise<void>
+  Promise<{ success: true }>
 > {
   constructor(
     @Inject(PROFILE_REPOSITORY)
     private readonly profileRepository: ProfileRepository,
   ) {}
 
-  async execute(input: Omit<UserEntity, "id">): Promise<void> {
+  async execute(input: Omit<UserEntity, "id">): Promise<{ success: true }> {
     await this.profileRepository.create(input);
+    return { success: true };
   }
 }

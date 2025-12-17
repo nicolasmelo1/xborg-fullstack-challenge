@@ -1,4 +1,4 @@
-import { GoogleCode, User } from "../all/types";
+import { GoogleCode, UpdateUserInput, User } from "../all/types";
 
 export const EVENTS = {
   user: {
@@ -25,9 +25,7 @@ export type EventInputAndOutputs = {
         };
   };
   [EVENTS.user.update]: {
-    input: {
-      externalId: User["externalId"];
-    } & Partial<Omit<User, "id" | "externalId">>;
+    input: UpdateUserInput;
     output:
       | {
           success: true;

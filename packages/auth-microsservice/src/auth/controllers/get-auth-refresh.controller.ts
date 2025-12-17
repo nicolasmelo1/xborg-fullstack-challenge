@@ -8,7 +8,7 @@ export class GetAuthRefreshController {
   constructor(private readonly refreshUseCase: RefreshUseCase) {}
 
   @MessagePattern(EVENTS.auth.refresh)
-  async create(
+  async handle(
     @Payload()
     payload: GetEventInput<typeof EVENTS.auth.refresh>,
   ): Promise<GetEventOutput<typeof EVENTS.auth.refresh>> {

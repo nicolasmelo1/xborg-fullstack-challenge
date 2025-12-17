@@ -1,5 +1,4 @@
 import "@testing-library/jest-dom/vitest";
-import React from "react";
 import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 import { server, defaultHandlers } from "./mocks/server";
@@ -11,6 +10,8 @@ import {
   useRouterMock,
   useSearchParamsMock,
 } from "./testUtils";
+
+process.env.NEXT_PUBLIC_API_HOST ??= "http://localhost:3006";
 
 vi.mock("next/navigation", () => ({
   useRouter: useRouterMock,
@@ -28,16 +29,6 @@ vi.mock("next/headers", () => ({
         .map(([key, value]) => `${key}=${value}`)
         .join("; "),
   }),
-}));
-
-vi.mock("@react-oauth/google", () => ({
-  GoogleOAuthProvider: ({ children }: { children: React.ReactNode }) => (
-    <>{children}</>
-  ),
-  useGoogleLogin:
-    (options: { onSuccess?: (data: { code: string }) => void }) => () => {
-      options?.onSuccess?.({ code: "CODE" });
-    },
 }));
 
 beforeAll(() => {

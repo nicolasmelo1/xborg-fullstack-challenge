@@ -8,7 +8,7 @@ export class PostAuthLoginGoogleController {
   constructor(private readonly authenticateUseCase: AuthenticateUseCase) {}
 
   @MessagePattern(EVENTS.auth.authenticate)
-  async create(
+  async handle(
     @Payload()
     payload: GetEventInput<typeof EVENTS.auth.authenticate>,
   ): Promise<GetEventOutput<typeof EVENTS.auth.authenticate>> {

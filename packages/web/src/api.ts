@@ -1,4 +1,6 @@
-export const API_HOST = "http://localhost:3006";
+import type { UpdateUserInput } from "@xborg/shared/all";
+
+export const API_HOST = process.env.NEXT_PUBLIC_API_HOST!;
 
 export async function fetchWithRefreshToken(
   input: RequestInfo | URL,
@@ -103,5 +105,18 @@ export const api = {
       credentials: "include",
     });
     return response.json();
+  },
+
+  updateProfile: async (body: UpdateUserInput) => {
+    const url = new URL("user/profile", API_HOST);
+    const response = await fetchWithRefreshToken(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      credentials: "include",
+    });
+    return response.ok;
   },
 };

@@ -10,8 +10,9 @@ import { Test } from "@nestjs/testing";
 import { EVENTS, GetEventOutput } from "@xborg/shared/backend";
 import { MessagingModule } from "src/messaging.module";
 import supertest from "supertest";
-import { PostAuthLoginGoogleController } from "src/auth/controllers/post-auth-login-google.controller";
 import { AuthenticateUseCase } from "src/auth/use-cases/authenticate.use-case";
+import { GetAuthValidateGoogleController } from "src/auth/controllers/get-auth-validate-google.controller";
+import cookieParser from "cookie-parser";
 
 @Controller()
 class MockedListener {
@@ -21,7 +22,7 @@ class MockedListener {
   }
 }
 
-describe("PostAuthLoginGoogleController (integration)", () => {
+describe("GetAuthValidateGoogleController (integration)", () => {
   let app: INestApplication;
   let microservice: INestMicroservice;
   let handleSpy: jest.SpyInstance;
@@ -45,7 +46,7 @@ describe("PostAuthLoginGoogleController (integration)", () => {
         }),
         MessagingModule.forTest(),
       ],
-      controllers: [PostAuthLoginGoogleController],
+      controllers: [GetAuthValidateGoogleController],
       providers: [AuthenticateUseCase],
     }).compile();
 
@@ -57,6 +58,7 @@ describe("PostAuthLoginGoogleController (integration)", () => {
       },
     });
     app = moduleRef.createNestApplication();
+    app.use(cookieParser());
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,
@@ -75,6 +77,7 @@ describe("PostAuthLoginGoogleController (integration)", () => {
     const payload = {
       code: "123",
     };
+    const expectedRedirectUrl = "https://test.com";
     const expectedResponse = {
       success: true,
       accessToken: "testAccess",
@@ -83,12 +86,14 @@ describe("PostAuthLoginGoogleController (integration)", () => {
     handleSpy.mockResolvedValue(expectedResponse);
 
     const response = await supertest(app.getHttpServer())
-      .post("/auth/login/google")
-      .send(payload);
+      .get("/auth/validate/google")
+      .query(payload)
+      .set("cookie", `redirectUrl=${expectedRedirectUrl}`);
 
-    expect(response.status).toEqual(201);
+    expect(response.status).toEqual(302);
     expect(handleSpy).toHaveBeenCalled();
     expect(handleSpy).toHaveBeenCalledWith(payload);
+    expect(response.header["location"]).toEqual(expectedRedirectUrl);
     expect(response.header["set-cookie"]).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`session=${expectedResponse.accessToken}`),
@@ -103,8 +108,8 @@ describe("PostAuthLoginGoogleController (integration)", () => {
     const payload = {};
 
     const response = await supertest(app.getHttpServer())
-      .post("/auth/login/google")
-      .send(payload);
+      .get("/auth/validate/google")
+      .query(payload);
 
     expect(response.status).toEqual(400);
   });

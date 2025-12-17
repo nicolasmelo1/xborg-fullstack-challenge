@@ -16,5 +16,9 @@ export default async function ProtectedLayout({
   const profile = await api.getProfile();
   if (profile.statusCode === 401) redirect("/signin");
 
-  return <ProfileProvider value={profile}>{children}</ProfileProvider>;
+  return (
+    <ProfileProvider value={profile}>
+      <div className="min-h-dvh bg-neutral-50">{children}</div>
+    </ProfileProvider>
+  );
 }

@@ -1,10 +1,16 @@
-import { Put, Controller } from "@nestjs/common";
-import { UpdateProfileUseCase } from "../use-cases/update-profile.use-case.js";
+import { Controller } from "@nestjs/common";
+import { MessagePattern, Payload } from "@nestjs/microservices";
+import { EVENTS, GetEventInput, GetEventOutput } from "@xborg/shared/backend";
+import { UpdateProfileUseCase } from "../use-cases/update-profile.use-case";
 
-@Controller("user/profile")
+@Controller()
 export class PutProfileController {
   constructor(private readonly updateProfileUseCase: UpdateProfileUseCase) {}
 
-  @Put()
-  putProfile() {}
+  @MessagePattern(EVENTS.user.update)
+  async handle(
+    @Payload() input: GetEventInput<typeof EVENTS.user.update>,
+  ): Promise<GetEventOutput<typeof EVENTS.user.update>> {
+    return this.updateProfileUseCase.execute(input);
+  }
 }

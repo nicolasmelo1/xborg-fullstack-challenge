@@ -10,7 +10,7 @@ export class GetProfileController {
   ) {}
 
   @MessagePattern(EVENTS.user.read)
-  async getHello(
+  async handle(
     @Payload() input: GetEventInput<typeof EVENTS.user.read>,
   ): Promise<GetEventOutput<typeof EVENTS.user.read>> {
     return this.readProfileExternalIdUseCase.execute(input);
