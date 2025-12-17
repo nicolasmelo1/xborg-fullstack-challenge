@@ -137,6 +137,8 @@ dist
 # DB
 db/
 
+.pnpm-store/
+
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
