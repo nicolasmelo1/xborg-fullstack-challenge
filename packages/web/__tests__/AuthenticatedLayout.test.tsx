@@ -33,7 +33,7 @@ test("Authenticated layout renders children when profile is available", async ()
     [COOKIE_REFRESH_TOKEN]: "r",
   });
   server.use(
-    http.get("http://localhost:3006/user/profile", () =>
+    http.get("http://localhost:3000/api/user/profile", () =>
       HttpResponse.json({
         externalId: "1",
         email: "a@test.com",

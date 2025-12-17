@@ -11,7 +11,7 @@ import {
   useSearchParamsMock,
 } from "./testUtils";
 
-process.env.NEXT_PUBLIC_API_HOST ??= "http://localhost:3006";
+process.env.API_GATEWAY_ORIGIN ??= "http://localhost:3006";
 
 vi.mock("next/navigation", () => ({
   useRouter: useRouterMock,
@@ -29,6 +29,11 @@ vi.mock("next/headers", () => ({
         .map(([key, value]) => `${key}=${value}`)
         .join("; "),
   }),
+  headers: async () =>
+    new Headers({
+      host: "localhost:3000",
+      "x-forwarded-proto": "http",
+    }),
 }));
 
 beforeAll(() => {

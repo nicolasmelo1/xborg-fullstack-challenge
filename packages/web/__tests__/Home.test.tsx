@@ -18,7 +18,7 @@ test("Home redirects to profile when cookies and profile is available", async ()
     [COOKIE_REFRESH_TOKEN]: "r",
   });
   server.use(
-    http.get("http://localhost:3006/user/profile", () =>
+    http.get("http://localhost:3000/api/user/profile", () =>
       HttpResponse.json({ statusCode: 200 }),
     ),
   );

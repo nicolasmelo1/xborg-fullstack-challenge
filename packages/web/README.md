@@ -23,7 +23,7 @@ cp -n .env.example .env
 
 Required:
 
-- `NEXT_PUBLIC_API_HOST` (defaults to `http://localhost:3006`)
+- `API_GATEWAY_ORIGIN` (defaults to `http://localhost:3006`)
 
 ## Getting Started
 

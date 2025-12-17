@@ -1,6 +1,24 @@
 import type { UpdateUserInput } from "@xborg/shared/all";
 
-export const API_HOST = process.env.NEXT_PUBLIC_API_HOST!;
+const API_BASE_PATH = "/api";
+
+async function getWebOrigin() {
+  const isServer = typeof window === "undefined";
+  if (!isServer) return window.location.origin;
+
+  const { headers } = await import("next/headers");
+  const h = await headers();
+  const host =
+    h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  return `${proto}://${host}`;
+}
+
+async function apiUrl(path: string) {
+  const origin = await getWebOrigin();
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${origin}${API_BASE_PATH}${normalizedPath}`;
+}
 
 export async function fetchWithRefreshToken(
   input: RequestInfo | URL,
@@ -55,7 +73,7 @@ export async function fetchWithRefreshToken(
 
 export const api = {
   refresh: async () => {
-    const url = new URL("/auth/refresh", API_HOST);
+    const url = await apiUrl("/auth/refresh");
     const response = await fetchWithRefreshToken(
       url,
       {
@@ -71,7 +89,7 @@ export const api = {
   },
 
   login: async (body: { code: string }) => {
-    const url = new URL("/auth/login/google", API_HOST);
+    const url = await apiUrl("/auth/login/google");
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -84,7 +102,7 @@ export const api = {
   },
 
   logout: async () => {
-    const url = new URL("/auth/logout", API_HOST);
+    const url = await apiUrl("/auth/logout");
     const response = await fetchWithRefreshToken(url, {
       method: "POST",
       headers: {
@@ -96,7 +114,7 @@ export const api = {
   },
 
   getProfile: async () => {
-    const url = new URL("user/profile", API_HOST);
+    const url = await apiUrl("/user/profile");
     const response = await fetchWithRefreshToken(url, {
       method: "GET",
       headers: {
@@ -108,7 +126,7 @@ export const api = {
   },
 
   updateProfile: async (body: UpdateUserInput) => {
-    const url = new URL("user/profile", API_HOST);
+    const url = await apiUrl("/user/profile");
     const response = await fetchWithRefreshToken(url, {
       method: "PUT",
       headers: {

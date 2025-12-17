@@ -2,6 +2,7 @@
   "$schema": "https://turborepo.com/schema.json",
   "globalEnv": [
     "PORT",
+    "API_GATEWAY_ORIGIN",
     "REDIS_HOST",
     "REDIS_PORT",
     "REDIS_PASSWORD",
@@ -11,6 +12,7 @@
     "DB_USER",
     "DB_PASSWORD",
     "DB_NAME",
+    "API_GATEWAY_ORIGIN",
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
     "GOOGLE_CALLBACK_URL",

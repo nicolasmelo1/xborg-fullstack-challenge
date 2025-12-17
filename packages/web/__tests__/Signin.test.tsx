@@ -17,7 +17,7 @@ test("SignInPage triggers google login (popup)", () => {
   fireEvent.click(screen.getByText("Sign in with Google"));
 
   expect(open).toHaveBeenCalledWith(
-    expect.stringContaining("/auth/login/google"),
+    expect.stringContaining("/api/auth/login/google"),
     "google_oauth",
     expect.stringContaining("width="),
   );

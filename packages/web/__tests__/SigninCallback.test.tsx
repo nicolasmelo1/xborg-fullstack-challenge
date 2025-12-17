@@ -16,11 +16,7 @@ test("SignInCallback posts success message and closes window", async () => {
     value: { postMessage },
     configurable: true,
   });
-  const close = vi.fn();
-  Object.defineProperty(window, "close", {
-    value: close,
-    configurable: true,
-  });
+  const close = vi.spyOn(window, "close").mockImplementation(() => undefined);
 
   render(<SignInCallback />);
 
@@ -31,6 +27,7 @@ test("SignInCallback posts success message and closes window", async () => {
     ),
   );
   expect(close).toHaveBeenCalled();
+  close.mockRestore();
 });
 
 test("SignInCallback posts error message and closes window", async () => {
@@ -46,11 +43,7 @@ test("SignInCallback posts error message and closes window", async () => {
     value: { postMessage },
     configurable: true,
   });
-  const close = vi.fn();
-  Object.defineProperty(window, "close", {
-    value: close,
-    configurable: true,
-  });
+  const close = vi.spyOn(window, "close").mockImplementation(() => undefined);
 
   render(<SignInCallback />);
 
@@ -61,4 +54,5 @@ test("SignInCallback posts error message and closes window", async () => {
     ),
   );
   expect(close).toHaveBeenCalled();
+  close.mockRestore();
 });

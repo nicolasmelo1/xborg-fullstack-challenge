@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { API_HOST } from "../../../../api";
 import { useSearchParams, useRouter } from "next/navigation";
 
 export default function SignIn() {
@@ -14,10 +13,10 @@ export default function SignIn() {
     const left = window.screenX + (window.outerWidth - w) / 2;
     const top = window.screenY + (window.outerHeight - h) / 2;
 
-    const loginUrl = new URL("/auth/login/google", API_HOST);
+    const loginUrl = new URL("/api/auth/login/google", window.location.origin);
     loginUrl.searchParams.set(
       "redirectUrl",
-      `${window.location.href}/callback`,
+      `${window.location.origin}/api/callback/signin`,
     );
 
     const popup = window.open(

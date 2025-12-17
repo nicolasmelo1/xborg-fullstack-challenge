@@ -32,6 +32,10 @@ export class GetAuthLoginGoogleController {
   ) {
     const result = this.buildGoogleUrlUseCase.execute();
 
+    console.log(result, {
+      redirectUrl: query.redirectUrl,
+      secure: process.env.NODE_ENV === "production",
+    });
     res.cookie(REDIRECT_URL_COOKIE, query.redirectUrl, {
       maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,

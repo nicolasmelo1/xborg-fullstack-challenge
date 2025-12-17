@@ -39,6 +39,13 @@ export class GetAuthValidateGoogleController {
 
     if (!result.success) throw new HttpException(result.error, 401);
 
+    console.log(result, {
+      redirectUrl: redirectUrl,
+      code: query.code,
+      accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
+      secure: process.env.NODE_ENV === "production",
+    });
     res.cookie(COOKIE_SESSION, result.accessToken, {
       maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
