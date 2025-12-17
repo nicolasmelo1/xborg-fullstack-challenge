@@ -89,6 +89,8 @@ API Gateway exposes Swagger UI at `http://localhost:3006/docs`.
 - Enabled by default when `NODE_ENV` is not `production`.
 - To enable in production, set `SWAGGER_ENABLED=true` on the API Gateway environment.
 
+You can go to `https://xborg-fullstack-challenge-web.vercel.app/api/docs` to see the production API documentation
+
 ## Quality checks
 
 From the repo root:
