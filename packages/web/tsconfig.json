@@ -3,7 +3,8 @@
   "extends": "@xborg/config/tsconfig.nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDir": "."
   },
   "include": [
     "next-env.d.ts",
