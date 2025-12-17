@@ -12,6 +12,7 @@
     "version": "pnpm changeset version --filter @xborg/*",
     "release": "pnpm changeset publish --filter @xborg/*",
     "dev": "turbo run dev",
+    "build:web": "turbo run build --filter @xborg/web --filter @xborg/shared",
     "dev:backend": "turbo run dev --filter @xborg/auth-microsservice --filter @xborg/api-gateway --filter @xborg/shared",
     "dev:web": "turbo run dev --filter @xborg/web --filter @xborg/shared",
     "test": "turbo run test",
