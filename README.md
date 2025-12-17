@@ -97,7 +97,14 @@ From the repo root:
 
 ```bash
 pnpm run lint
-pnpm run test:integration
+pnpm run test
+```
+
+If you want to run the checks just for the backend:
+
+```bash
+pnpm run test:backend
+
 ```
 
 Web app only:

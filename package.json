@@ -16,7 +16,7 @@
     "dev:backend": "turbo run dev --filter @xborg/auth-microsservice --filter @xborg/api-gateway --filter @xborg/shared",
     "dev:web": "turbo run dev --filter @xborg/web --filter @xborg/shared",
     "test": "turbo run test",
-    "test:backend": "turbo run test:integration --filter @xborg/auth-microsservice --filter @xborg/api-gateway",
+    "test:backend": "turbo run test --filter @xborg/auth-microsservice --filter @xborg/api-gateway",
     "migration:generate": "turbo run migration:generate",
     "migration:run": "turbo run migration:run",
     "migration:revert": "turbo run migration:revert",
