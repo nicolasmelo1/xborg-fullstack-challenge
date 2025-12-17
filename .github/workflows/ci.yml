@@ -20,6 +20,7 @@ jobs:
       GOOGLE_CLIENT_SECRET: dummy
       GOOGLE_REDIRECT_URI: http://localhost:3000/api/auth/validate/google
       FRONTEND_ORIGIN: http://localhost:3000
+      JWT_EXPIRES_IN: 60
       API_GATEWAY_ORIGIN: http://localhost:3006
 
     steps:
