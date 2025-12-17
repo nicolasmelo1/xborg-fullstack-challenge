@@ -11,7 +11,7 @@ export default function SignInCallback() {
         : { type: "oauth:google:success" },
       window.location.origin,
     );
-    window.close();
+    //window.close();
   }, []);
 
   return <>Redirecting you back to the application...</>;
