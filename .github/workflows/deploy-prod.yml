@@ -37,4 +37,4 @@ jobs:
       - name: Deploy auth-microsservice
         run: flyctl deploy --remote-only --config ./packages/auth-microsservice/fly.toml
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_AUTH_MICROSERVICE_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_AUTH_MICROSSERVICE_TOKEN }}
