@@ -17,6 +17,8 @@ export const AUTH_SERVICE_CLIENT = Symbol("AUTH_SERVICE_CLIENT");
           options: {
             host: config.get("REDIS_HOST"),
             port: config.get("REDIS_PORT"),
+            password: config.get("REDIS_PASSWORD") ?? undefined,
+            username: config.get("REDIS_USER") ?? undefined,
           },
         }),
       },
