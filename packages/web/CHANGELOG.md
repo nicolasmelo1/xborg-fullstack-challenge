@@ -1,0 +1,15 @@
+# @xborg/web
+
+## 0.0.2
+
+### Patch Changes
+
+- 57be5c6: Added tests for the frontend as well
+- de04e16: Overhaul on the website, able to update a profile now as well
+- 048a5e3: Done the primary logic of the project but not all
+- 2c05bc6: Able to login and logout now, got a refresh token and we are doing the profile logic now
+- Updated dependencies [9faf4dd]
+- Updated dependencies [de04e16]
+- Updated dependencies [048a5e3]
+- Updated dependencies [2c05bc6]
+  - @xborg/shared@0.0.2
