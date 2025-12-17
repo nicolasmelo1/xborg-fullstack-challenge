@@ -1,5 +1,13 @@
 # @xborg/web
 
+## 0.0.3
+
+### Patch Changes
+
+- b97c430: update readme with new API_GATEWAY settings for production also put back window.close on the callback page
+- b570d81: Resolve build issue on next
+- a5bb347: Deploying to production
+
 ## 0.0.2
 
 ### Patch Changes

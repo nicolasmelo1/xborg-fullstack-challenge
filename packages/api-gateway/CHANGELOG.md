@@ -1,5 +1,11 @@
 # @xborg/api-gateway
 
+## 0.0.3
+
+### Patch Changes
+
+- a5bb347: Deploying to production
+
 ## 0.0.2
 
 ### Patch Changes
