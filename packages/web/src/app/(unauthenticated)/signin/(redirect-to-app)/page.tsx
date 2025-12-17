@@ -16,7 +16,7 @@ export default function SignIn() {
     const loginUrl = new URL("/api/auth/login/google", window.location.origin);
     loginUrl.searchParams.set(
       "redirectUrl",
-      `${window.location.origin}/api/callback/signin`,
+      `${window.location.origin}/signin/callback`,
     );
 
     const popup = window.open(

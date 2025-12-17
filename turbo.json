@@ -3,6 +3,7 @@
   "globalEnv": [
     "PORT",
     "API_GATEWAY_ORIGIN",
+    "SWAGGER_ENABLED",
     "REDIS_HOST",
     "REDIS_PORT",
     "REDIS_PASSWORD",

@@ -5,13 +5,42 @@ import { GetAuthenticatedUserExternalId } from "../../auth/decorators/get-authen
 import { firstValueFrom } from "rxjs";
 import { GetProfileResponseDto } from "../dtos/get-profile.response.dto";
 import { plainToInstance } from "class-transformer";
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
+import { ErrorResponseDto } from "../../docs/dtos/error.response.dto";
 
 @Controller("user/profile")
+@ApiTags("user")
 export class GetProfileController {
   constructor(private readonly getProfileUseCase: GetProfileUseCase) {}
 
   @Get()
   @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth("session")
+  @ApiOperation({
+    summary: "Get current user profile",
+    description:
+      "Returns the authenticated user's profile based on the session cookie.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "User profile.",
+    type: GetProfileResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: "Missing/invalid session token.",
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: "Profile not found.",
+    type: ErrorResponseDto,
+  })
   async getProfile(
     @GetAuthenticatedUserExternalId()
     externalId: string,
