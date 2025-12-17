@@ -1,5 +1,11 @@
 # @xborg/web
 
+## 0.0.4
+
+### Patch Changes
+
+- 7b14803: remove uneedded api endpoint on the frontend during callback and added swagger documentation to api-gateway
+
 ## 0.0.3
 
 ### Patch Changes
