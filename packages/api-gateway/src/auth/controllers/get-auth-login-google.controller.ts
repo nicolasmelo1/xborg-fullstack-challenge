@@ -16,7 +16,7 @@ export class GetAuthLoginGoogleController {
   constructor(private readonly buildGoogleUrlUseCase: BuildGoogleUrlUseCase) {}
 
   @Get()
-  @Redirect("https://www.google.com", 302)
+  @Redirect(process.env.FRONTEND_ORIGIN, 302)
   async create(
     @Query(
       new ValidationPipe({
