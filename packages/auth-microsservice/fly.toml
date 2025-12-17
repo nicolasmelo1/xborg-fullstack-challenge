@@ -12,11 +12,7 @@ primary_region = "gru"
 [env]
   NODE_ENV = "production"
 
-[processes]
-  app = "npm run start:prod"
-
 [[vm]]
   cpu_kind = "shared"
   cpus = 1
   memory = "512mb"
-

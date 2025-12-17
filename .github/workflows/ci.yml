@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NODE_ENV: test
+      JWT_PRIVATE_KEY: auth
+      GOOGLE_CLIENT_ID: dummy
+      GOOGLE_CLIENT_SECRET: dummy
+      GOOGLE_REDIRECT_URI: http://localhost:3000/api/auth/validate/google
+      FRONTEND_ORIGIN: http://localhost:3000
+      API_GATEWAY_ORIGIN: http://localhost:3006
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.25.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared package
+        run: pnpm --filter @xborg/shared build
+
+      - name: Web typecheck
+        run: pnpm -C packages/web typecheck
+
+      - name: Web lint
+        run: pnpm -C packages/web lint
+
+      - name: Web tests
+        run: pnpm -C packages/web test
+
+      - name: API gateway build
+        run: pnpm -C packages/api-gateway build
+
+      - name: API gateway tests
+        run: pnpm -C packages/api-gateway test
+
+      - name: Auth microservice build
+        run: pnpm -C packages/auth-microsservice build
+
+      - name: Auth microservice tests
+        run: pnpm -C packages/auth-microsservice test
+
