@@ -4,6 +4,20 @@ on:
   workflow_run:
     workflows: ["CI"]
     types: [completed]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to deploy (branch/tag/SHA)
+        required: false
+        default: main
+      deploy_api_gateway:
+        description: Deploy api-gateway
+        required: false
+        default: "true"
+      deploy_auth_microservice:
+        description: Deploy auth-microsservice
+        required: false
+        default: "true"
 
 concurrency:
   group: deploy-prod
@@ -13,8 +27,11 @@ jobs:
   deploy_api_gateway:
     if: >-
       ${{
-        github.event.workflow_run.conclusion == 'success' &&
-        github.event.workflow_run.head_branch == 'main'
+        (github.event_name == 'workflow_run' &&
+          github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.head_branch == 'main') ||
+        (github.event_name == 'workflow_dispatch' &&
+          inputs.deploy_api_gateway == 'true')
       }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -22,7 +39,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: >-
+            ${{
+              github.event_name == 'workflow_run' &&
+              github.event.workflow_run.head_sha ||
+              inputs.ref
+            }}
 
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
@@ -35,8 +57,11 @@ jobs:
   deploy_auth_microservice:
     if: >-
       ${{
-        github.event.workflow_run.conclusion == 'success' &&
-        github.event.workflow_run.head_branch == 'main'
+        (github.event_name == 'workflow_run' &&
+          github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.head_branch == 'main') ||
+        (github.event_name == 'workflow_dispatch' &&
+          inputs.deploy_auth_microservice == 'true')
       }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -44,7 +69,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: >-
+            ${{
+              github.event_name == 'workflow_run' &&
+              github.event.workflow_run.head_sha ||
+              inputs.ref
+            }}
 
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
