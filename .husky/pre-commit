@@ -1,0 +1,15 @@
+# skip once via env flag if needed
+[ -n "$SKIP_CHANGESET" ] && exit 0
+
+# if a changeset is already staged, continue
+if git diff --cached --name-only -- .changeset 2>/dev/null | grep -q '.changeset'; then
+  exit 0
+fi
+
+# ensure interactive prompt works
+[ -t 0 ] || exec < /dev/tty
+
+# create and stage a new changeset
+pnpm changeset add || exit 1
+git add .changeset/*.md
+

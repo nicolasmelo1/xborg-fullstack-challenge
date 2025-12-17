@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalEnv": [
+    "PORT",
+    "REDIS_HOST",
+    "REDIS_PORT",
+    "DB_HOST",
+    "DB_PORT",
+    "DB_USER",
+    "DB_PASSWORD",
+    "DB_NAME",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_CALLBACK_URL",
+    "FRONTEND_ORIGIN",
+    "NODE_ENV"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "lint": {},
+    "test": {},
+    "migration:generate": {},
+    "migration:run": {},
+    "migration:revert": {},
+    "test:integration": {},
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "start:dev": {
+      "persistent": true,
+      "cache": false
+    }
+  }
+}

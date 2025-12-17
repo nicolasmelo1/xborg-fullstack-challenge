@@ -1,0 +1,87 @@
+{
+  "name": "@xborg/config",
+  "version": "0.0.2",
+  "description": "Default configuration files for the project",
+  "exports": {
+    "./eslint.nestjs": {
+      "import": "./src/eslint/eslint.nestjs.mjs",
+      "types": "./src/eslint/eslint.d.ts"
+    },
+    "./eslint.library": {
+      "import": "./src/eslint/eslint.library.mjs",
+      "types": "./src/eslint/eslint.d.ts"
+    },
+    "./eslint.base": {
+      "import": "./src/eslint/eslint.base.mjs",
+      "types": "./src/eslint/eslint.d.ts"
+    },
+    "./eslint.nextjs": {
+      "import": "./src/eslint/eslint.nextjs.mjs",
+      "types": "./src/eslint/eslint.d.ts"
+    },
+    "./tsconfig.nestjs.json": "./src/tsconfig/tsconfig.nestjs.json",
+    "./tsconfig.base.json": "./src/tsconfig/tsconfig.base.json",
+    "./tsconfig.nextjs.json": "./src/tsconfig/tsconfig.nextjs.json",
+    "./jest/jest.nestjs": {
+      "import": "./src/jest/jest.nestjs.ts",
+      "default": "./src/jest/jest.nestjs.ts"
+    },
+    "./jest/jest-setup": {
+      "import": "./src/jest/jest-setup.ts",
+      "default": "./src/jest/jest-setup.ts",
+      "types": "./src/jest/jest-setup.ts"
+    },
+    "./jest/jest-teardown": {
+      "import": "./src/jest/jest-teardown.ts",
+      "default": "./src/jest/jest-teardown.ts",
+      "types": "./src/jest/jest-teardown.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "eslint": [
+        "src/eslint/eslint.base.mjs",
+        "src/eslint/eslint.config.mjs",
+        "src/eslint/eslint.library.mjs",
+        "src/eslint/eslint.nestjs.mjs",
+        "src/eslint/eslint.nextjs.mjs"
+      ],
+      "jest": [
+        "src/jest/jest.nestjs.ts",
+        "src/jest/jest-setup.ts",
+        "src/jest/jest-teardown.ts"
+      ],
+      "jest/*": [
+        "src/jest/*"
+      ],
+      "tsconfig": [
+        "src/tsconfig/tsconfig.base.json",
+        "src/tsconfig/tsconfig.nestjs.json",
+        "src/tsconfig/tsconfig.nextjs.json"
+      ]
+    }
+  },
+  "private": true,
+  "keywords": [],
+  "type": "module",
+  "author": "Nicolas Melo",
+  "license": "ISC",
+  "packageManager": "pnpm@10.25.0",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@next/eslint-plugin-next": "^16.0.10",
+    "@swc/jest": "^0.2.39",
+    "@typescript-eslint/parser": "^8.49.0",
+    "eslint-config-next": "16.0.8",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-turbo": "^2.6.3",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
+    "testcontainers": "^11.10.0",
+    "typescript-eslint": "^8.49.0"
+  }
+}
