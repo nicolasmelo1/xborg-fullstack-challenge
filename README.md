@@ -8,8 +8,13 @@ Full Stack Engineer technical challenge (monorepo).
 
 - Get your Google Client ID and Secret from [Google Cloud Console](https://console.cloud.google.com/)
 - Create a new OAuth 2.0 Client
-- Add `http://localhost:3006` as authorized JavaScript Origin
-- Add `http://localhost:3006/auth/validate/google` as Authorized redirect URIs
+- Add `http://localhost:3000` as an authorized JavaScript origin
+- Add `http://localhost:3000/api/auth/validate/google` as an authorized redirect URI
+
+For production, add your deployed web URL:
+
+- Authorized JavaScript origin: `https://<your-vercel-app>.vercel.app`
+- Authorized redirect URI: `https://<your-vercel-app>.vercel.app/api/auth/validate/google`
 
 ## Running locally
 
