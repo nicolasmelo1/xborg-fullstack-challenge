@@ -12,4 +12,5 @@ fi
 # create and stage a new changeset
 pnpm changeset add || exit 1
 git add .changeset/*.md
+pnpm run lint
 

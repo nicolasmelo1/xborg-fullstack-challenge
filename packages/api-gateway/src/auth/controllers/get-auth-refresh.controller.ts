@@ -9,6 +9,7 @@ import { GetAuthenticatedUserExternalId } from "../decorators/get-authenticated-
 @Controller("auth/refresh")
 export class GetAuthRefreshController {
   constructor(private readonly refreshUseCase: RefreshUseCase) {}
+
   @Get()
   @JwtType("refreshToken")
   @UseGuards(JwtAuthGuard)

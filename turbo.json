@@ -4,6 +4,8 @@
     "PORT",
     "REDIS_HOST",
     "REDIS_PORT",
+    "REDIS_PASSWORD",
+    "REDIS_USER",
     "DB_HOST",
     "DB_PORT",
     "DB_USER",
